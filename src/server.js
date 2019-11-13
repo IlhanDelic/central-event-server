@@ -1,16 +1,35 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
+//intalling the requireries
+//----------------------------------------------------------------------------------------
 //const http = require('http');
-var express_1 = __importDefault(require("express"));
-var app = express_1.default();
+var express = require("express");
+var app = express();
+//the first eventstream which simply prints "hello there"
+//----------------------------------------------------------------------------------------
 app.get('/', function (req, res) {
-    res.write('hello there');
+    res.set({
+        connection: "keep alive",
+        "cache-control": "no-cache",
+        "content-Type": "text/event-stream",
+    });
+    res.write("hello there\n\n");
 });
+//----------------------------------------------------------------------------------------
+app.get('/eventstream', function (req, res, next) {
+    res.set({
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive'
+    });
+    app.on('message', function (data) {
+        res.write("event: message\n");
+        res.write("data: " + JSON.stringify(data) + "\n\n");
+    });
+});
+//----------------------------------------------------------------------------------------
 app.get('/welcome', function (req, res) {
-    res.status(200).set({
+    res.set({
         connection: "keep alive",
         "cache-control": "no-cache",
         "content-Type": "text/event-stream",
@@ -25,14 +44,16 @@ app.get('/welcome', function (req, res) {
         }
     }, 1000);
 });
+//----------------------------------------------------------------------------------------
 app.get('/countdown', function (req, res) {
-    res.status(200).set({
+    res.set({
         connection: "keep alive",
         "cache-control": "no-cache",
         "content-Type": "text/event-stream",
     });
     countdown(res, 13);
 });
+//----------------------------------------------------------------------------------------
 function countdown(res, count) {
     res.write("data: time left " + count + " \n\n");
     if (count) {
@@ -43,4 +64,5 @@ function countdown(res, count) {
         res.end();
     }
 }
+//----------------------------------------------------------------------------------------
 app.listen(process.env.PORT || 5000, function () { return console.log("go to http://localhost:5000 or https://sse-test2.herokuapp.com"); });

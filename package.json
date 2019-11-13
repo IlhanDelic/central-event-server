@@ -1,17 +1,27 @@
 {
-  "name": "SSE-test2",
+  "name": "central-event-server",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "a advanced version of SSE-test by using the url to change the events",
+  "main": "index.js",
+  "dependencies": {
+    "express": "4.17.1",
+    "sse": "0.0.8"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./src/server.js"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IlhanDelic/central-event-server.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "express": "4.17.1",
-    "sse": "0.0.8"
-  }
+  "bugs": {
+    "url": "https://github.com/IlhanDelic/central-event-server/issues"
+  },
+  "homepage": "https://github.com/IlhanDelic/central-event-server#readme"
 }
