@@ -9,8 +9,10 @@ this programs work by going to the directory in where the central-event-server i
 
 now run the command " node ./src/server.js"
 
-go to http://localhost:5000 (/countdown) (/welcome)
-here you'll get a greeting
+go to http://localhost:5000 
+
+(/countdown) (/welcome)
+
 
 for the sse part add  /countdown or /welcome to the hostname
 /countdown is a countdown
